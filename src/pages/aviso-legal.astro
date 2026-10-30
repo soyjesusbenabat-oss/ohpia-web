@@ -1,0 +1,15 @@
+---
+import Legal from '../components/Legal.astro';
+import { site } from '../data/site';
+---
+<Legal title="Aviso legal" description="Datos identificativos del titular de la web de OHPIA.">
+  <h2>Titular de la web</h2>
+  <ul>
+    <li>Denominación: {site.name} (OHPIA), asociación sin ánimo de lucro.</li>
+    <li>Domicilio: {site.address}.</li>
+    <li>NIF: {site.nif}.</li>
+    <li>Email: <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
+  </ul>
+  <h2>Condiciones de uso</h2>
+  <p>El acceso a esta web es gratuito. Los contenidos tienen fines informativos. Si detectas un error, escríbenos a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+</Legal>

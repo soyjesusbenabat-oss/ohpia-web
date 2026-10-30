@@ -1,0 +1,364 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+import { tesis, principios, perfiles, motivos, n2 } from '../data/contenido';
+
+const privacidad = '<a href="/privacidad" target="_blank">política de privacidad</a>';
+---
+<Base>
+  <!-- 1 · PORTADA -->
+  <section id="inicio" class="dark hero" aria-labelledby="h-inicio">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <p class="eyebrow">{site.name}</p>
+          <h1 id="h-inicio">{site.claim}</h1>
+          <p class="lead">La inteligencia artificial sirve para ganar eficiencia. Su fin es mejorar el trabajo de las personas. Ayudamos a las pymes a decidir qué automatizar y qué no, quién conserva la decisión y a dónde va el tiempo que se gana.</p>
+          <div class="ctas">
+            <a class="btn btn-menta" href="#tesis">Conoce nuestras tesis</a>
+            <a class="btn btn-outline" href="#profesionales">Soy profesional de la IA</a>
+          </div>
+        </div>
+        <img class="symbol" src="/simbolo.png" alt="" width="206" height="208" aria-hidden="true" fetchpriority="low" />
+      </div>
+      <div class="rule">
+        <p class="motto">{site.motto}</p>
+        <p class="small">Asociación sin ánimo de lucro</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · LAS TRES BRECHAS -->
+  <section id="brechas" class="sec bg-arena" aria-labelledby="h-brechas">
+    <div class="wrap">
+      <p class="eyebrow">Por qué existimos</p>
+      <h2 class="h2" id="h-brechas" style="max-width:900px">Usar IA no es lo mismo que saber usarla</h2>
+      <p class="lead" style="margin-top:24px;max-width:720px">Entre la empresa que adopta la inteligencia artificial y la que sale ganando con ella hay tres brechas. Casi todos los estudios miden la primera. Nosotros nos centramos en la tercera.</p>
+      <div class="grid brechas">
+        <div class="brecha">
+          <p class="k">Brecha 1</p>
+          <p class="t">Adopción</p>
+          <p class="q">¿Se usa la IA?</p>
+          <p class="d">Cuántas empresas la usan y para qué. Es lo que ya miden los barómetros de adopción.</p>
+        </div>
+        <div class="brecha">
+          <p class="k">Brecha 2</p>
+          <p class="t">Productividad</p>
+          <p class="q">¿Rinde?</p>
+          <p class="d">Si lo que se invierte se convierte en mejor trabajo, y a dónde va el tiempo que la IA libera.</p>
+        </div>
+        <div class="brecha foco">
+          <p class="k">Brecha 3 · nuestro foco</p>
+          <p class="t">Criterio</p>
+          <p class="q">¿Sabemos juzgar lo que hace?</p>
+          <p class="d">Si las personas conservan la capacidad de explicar, verificar y decidir. La brecha que casi nadie mide.</p>
+        </div>
+      </div>
+      <div class="cierre">
+        <p>La tecnología ya está al alcance de cualquiera. Lo que separa a unas empresas de otras no es cuánta IA usan, sino si saben para qué la usan y si sus equipos siguen sabiendo decidir.</p>
+        <p class="big">El problema no es la tecnología. Es el criterio.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · QUÉ ES -->
+  <section id="que-es" class="sec bg-crema" aria-labelledby="h-que-es">
+    <div class="wrap">
+      <p class="eyebrow">Qué es OHPIA</p>
+      <div class="intro">
+        <h2 class="h2" id="h-que-es">La comunidad que conecta la IA con la empresa hispana</h2>
+        <p class="lead">Somos una asociación sin ánimo de lucro, constituida en Sevilla en octubre de 2026. Existimos para que la inteligencia artificial mejore la productividad de las pymes con las personas que trabajan en el centro.</p>
+      </div>
+      <div class="grid pilares mt-l">
+        <div class="pilar">
+          <h3>Conocimiento</h3>
+          <p>Estudiamos qué cambia en el trabajo cuando entra la IA: quién decide, qué se sigue aprendiendo y a dónde va el tiempo liberado. Publicamos estudios y casos reales.</p>
+        </div>
+        <div class="pilar">
+          <h3>Criterio</h3>
+          <p>Ayudamos a decidir qué automatizar y qué no. Explicamos lo que exige la ley, que es el punto de partida y no la meta, y formamos para usar la IA sin perder la capacidad de juzgarla.</p>
+        </div>
+        <div class="pilar">
+          <h3>Conexión</h3>
+          <p>Unimos a las empresas que necesitan IA con profesionales acreditados que saben implantarla y cumplen criterios públicos de calidad, ética y transparencia.</p>
+        </div>
+      </div>
+      <div class="grid hace mt-m">
+        <div class="card">
+          <p class="eyebrow">OHPIA hace</p>
+          <p class="say">Medir, divulgar, diagnosticar, orientar, formar, acreditar y conectar.</p>
+        </div>
+        <div class="card navy">
+          <p class="eyebrow">OHPIA no hace</p>
+          <p class="say">Implantar ni vender tecnología.</p>
+          <p class="note">Por eso podemos recomendar sin conflicto de intereses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · TESIS -->
+  <section id="tesis" class="sec dark" aria-labelledby="h-tesis">
+    <div class="wrap">
+      <p class="eyebrow">Nuestras tesis</p>
+      <div class="intro">
+        <h2 class="h2" id="h-tesis">La función de la IA es la eficiencia. Su fin, las personas.</h2>
+        <p class="lead">De esa convicción salen siete ideas que guían todo lo que hacemos: lo que estudiamos, lo que recomendamos a las empresas y lo que exigimos a quien acreditamos.</p>
+      </div>
+      <ol class="grid plain tesis">
+        {tesis.map((x, i) => (
+          <li class="card">
+            <span class="num" aria-hidden="true">{n2(i)}</span>
+            <h3><span class="sr-only">Tesis {i + 1}. </span>{x.t}</h3>
+            <p>{x.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 5 · EMPRESAS -->
+  <section id="empresas" class="sec bg-papel" aria-labelledby="h-empresas">
+    <div class="wrap">
+      <p class="eyebrow">Para empresas</p>
+      <div class="intro">
+        <h2 class="h2" id="h-empresas">Antes de comprar IA, decide para qué</h2>
+        <p class="lead">Te ayudamos a saber en qué punto estás, qué te conviene automatizar y qué no, quién debe seguir decidiendo y qué te exige la ley. Sin venderte nada.</p>
+      </div>
+
+      <div class="suena mt-l">
+        <h3>Te suena si…</h3>
+        <ul class="plain">
+          <li>Tu equipo usa ChatGPT o Copilot, cada persona a su manera y sin que nadie revise lo que sale.</li>
+          <li>Ahorras tiempo con la IA, pero no has decidido a qué dedicarlo.</li>
+          <li>Has automatizado tareas que ya nadie en la empresa sabría hacer sin la herramienta.</li>
+          <li>Te llegan ofertas de «soluciones con IA» y no sabes cuál tiene sentido.</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:clamp(64px,7vw,104px)">
+        <p class="eyebrow">Cómo funciona</p>
+        <ol class="grid plain pasos">
+          <li class="card">
+            <span class="n" aria-hidden="true">1</span>
+            <h3><span class="sr-only">Paso 1. </span>Qué automatizar y qué no</h3>
+            <p class="grow">Qué tareas conviene automatizar, cuáles reforzar con IA y cuáles no tocar: las que exigen juicio y las que forman a tu equipo. Con lo que pide la ley y las ayudas que existen.</p>
+            <span class="tag">Guías · diciembre 2026</span>
+          </li>
+          <li class="card">
+            <span class="n" aria-hidden="true">2</span>
+            <h3><span class="sr-only">Paso 2. </span>Formación en criterio</h3>
+            <p class="grow">No solo a manejar herramientas: a revisar, explicar y corregir lo que produce la IA, y a saber cuándo no fiarse de ella.</p>
+            <span class="tag">Formación · enero 2027</span>
+          </li>
+          <li class="card navy">
+            <span class="n" aria-hidden="true">3</span>
+            <h3><span class="sr-only">Paso 3. </span>Tú eliges quién lo implanta</h3>
+            <p class="grow">Te proponemos varios profesionales acreditados y te explicamos por qué. Decides tú.</p>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="ley mt-m">
+        <h3>Formar a tu equipo en IA ya es obligatorio. Y no basta con enseñar a usar herramientas.</h3>
+        <p>Desde febrero de 2025, el Reglamento europeo de IA exige que el personal que usa sistemas de IA tenga un nivel suficiente de alfabetización. Para nosotros eso significa criterio: saber cuándo fiarse de la IA y cuándo no. La ley es el suelo; te ayudamos a ir más allá.</p>
+      </aside>
+
+      <div class="cta-row mt-m">
+        <p>¿Quieres que hablemos de tu empresa?</p>
+        <a class="btn btn-navy" href="#contacto-form" data-motivo="Soy empresa">Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · PROFESIONALES -->
+  <section id="profesionales" class="sec dark" aria-labelledby="h-profesionales">
+    <div class="wrap">
+      <p class="eyebrow">Para profesionales</p>
+      <div class="intro">
+        <h2 class="h2" id="h-profesionales">Implantas IA. Hazlo con un respaldo que las empresas reconozcan</h2>
+        <p class="lead">OHPIA reúne a consultores, implantadores y perfiles técnicos que implantan IA para hacer más capaces a los equipos, no para dejarlos sin saber hacer su trabajo. Las empresas llegan a ti sabiendo qué necesitan.</p>
+      </div>
+      <div class="grid servicios mt-l">
+        <div class="card">
+          <h3>Comunidad</h3>
+          <p>Casos, debates y contactos con profesionales que hacen lo mismo que tú.</p>
+        </div>
+        <div class="card">
+          <h3>Formación</h3>
+          <p class="grow">Diagnóstico de procesos, normativa, ética y cómo implantar sin que la empresa pierda el criterio.</p>
+          <span class="tag">Desde enero de 2027</span>
+        </div>
+        <div class="card">
+          <h3>Acreditación OHPIA</h3>
+          <p class="grow">Un distintivo verificable con criterios públicos de calidad, ética y transparencia, revisados por un Consejo Asesor independiente.</p>
+          <span class="tag">Prevista para 2028</span>
+        </div>
+        <div class="card">
+          <h3>Proyectos y empleo</h3>
+          <p class="grow">Encargos de diagnóstico, retos de empresa y ofertas de partners.</p>
+          <span class="tag">2028</span>
+        </div>
+      </div>
+
+      <div class="registro" id="registro">
+        <div>
+          <p class="eyebrow">Registro de profesionales</p>
+          <h3 id="h-registro">Regístrate gratis</h3>
+          <p class="sub">Te avisaremos de cada novedad antes que a nadie.</p>
+        </div>
+        <div>
+          <form class="form" data-form="profesional" action="/api/formulario" method="post" aria-labelledby="h-registro" novalidate>
+            <input type="hidden" name="tipo" value="profesional" />
+            <input type="hidden" name="t" value="" />
+            <div class="hp" aria-hidden="true"><label>Web<input type="text" name="web" tabindex="-1" autocomplete="off" /></label></div>
+            <label class="field"><span>Nombre</span><input name="nombre" required autocomplete="name" maxlength="120" /></label>
+            <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" maxlength="200" /></label>
+            <label class="field"><span>Perfil</span>
+              <select name="perfil" required>
+                <option value="">Elige tu perfil</option>
+                {perfiles.map((p) => <option>{p}</option>)}
+              </select>
+            </label>
+            <label class="field"><span>Sectores en los que trabajas <span class="opt">(opcional)</span></span><input name="sectores" maxlength="200" /></label>
+            <label class="field"><span>Provincia o país</span><input name="provincia" required autocomplete="address-level1" maxlength="120" /></label>
+            <label class="field"><span>LinkedIn <span class="opt">(opcional)</span></span><input name="linkedin" type="url" placeholder="https://" maxlength="300" /></label>
+            <fieldset class="checks full">
+              <legend class="sr-only">Consentimiento y preferencias</legend>
+              <label class="check"><input type="checkbox" name="privacidad" value="si" required /><span>Acepto la <Fragment set:html={privacidad} /> (obligatorio)</span></label>
+              <label class="check"><input type="checkbox" name="acreditacion" value="si" /><span>Me interesa la acreditación</span></label>
+              <label class="check"><input type="checkbox" name="boletin" value="si" /><span>Quiero recibir el boletín</span></label>
+            </fieldset>
+            <p class="form-msg full" role="alert"></p>
+            <div class="full"><button class="btn btn-menta" type="submit">Unirme a OHPIA</button></div>
+          </form>
+          <div class="done" role="status" tabindex="-1" hidden>
+            <p class="eyebrow">Recibido</p>
+            <p class="big">Ya formas parte de OHPIA. Te avisaremos de cada novedad.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 · BARÓMETRO -->
+  <section id="barometro" class="sec bg-arena barometro" aria-labelledby="h-barometro">
+    <div class="wrap">
+      <p class="eyebrow">Barómetro OHPIA del Progreso en IA</p>
+      <h2 class="h2 xl" id="h-barometro">¿A dónde va el tiempo que ahorra la IA?</h2>
+      <div class="body">
+        <p><strong>Casi todos los estudios cuentan cuántas empresas usan IA.</strong> El nuestro preguntará qué cambia en el trabajo cuando la usan: a dónde va el tiempo liberado (más producción, formación o innovación, menos horas o menos plantilla), qué se sigue aprendiendo y quién toma las decisiones. Un estudio anual, con metodología, cuestionario y datos anonimizados públicos.</p>
+        <div><a class="btn btn-navy" href="#contacto-form" data-motivo="Soy empresa">Quiero que mi empresa participe</a></div>
+      </div>
+      <ul class="plain compromisos">
+        <li>Metodología abierta</li>
+        <li>Un Comité de Estudios con autonomía técnica</li>
+        <li>Ningún partner ve datos individuales ni decide qué se publica</li>
+        <li>Participar no te traerá ofertas comerciales</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 8 · PRINCIPIOS -->
+  <section id="principios" class="sec bg-crema" aria-labelledby="h-principios">
+    <div class="wrap">
+      <p class="eyebrow">Principios</p>
+      <h2 class="h2" id="h-principios">Cómo trabajamos</h2>
+      <ol class="grid plain principios">
+        {principios.map((p, i) => (
+          <li class="card">
+            <span class="num" aria-hidden="true">{n2(i)}</span>
+            <h3>{p.t}</h3>
+            <p>{p.d}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 9 · COLABORA -->
+  <section id="colabora" class="sec dark colabora" aria-labelledby="h-colabora">
+    <div class="wrap">
+      <p class="eyebrow">Colabora</p>
+      <h2 class="h2 xl" id="h-colabora">OHPIA diagnostica y orienta.<br /><span class="accent">Tú ejecutas.</span></h2>
+      <p class="lead">Si tu empresa hace consultoría, implantación, seguridad o asesoría jurídica en IA, o si representas a una universidad o una institución, hay sitio para ti.</p>
+      <div class="grid mt-m">
+        <div class="card">
+          <h3>Partners</h3>
+          <p>Empresas que cumplen nuestros criterios de homologación. Acceso a empresas que ya saben qué necesitan, a talento formado y a visibilidad junto a OHPIA.</p>
+          <p class="plazas">Máximo 12 partners, derivación no exclusiva. <span class="accent">Plazas de partner fundador limitadas.</span></p>
+        </div>
+        <div class="card">
+          <h3>Universidades y centros de investigación</h3>
+          <p>Investigación sobre IA, productividad, ética y derecho, y colaboración en el Barómetro, la acreditación y la formación.</p>
+        </div>
+        <div class="card">
+          <h3>Instituciones y organizaciones empresariales</h3>
+          <p>Diagnósticos y formación para sus asociados, y datos para sus políticas.</p>
+        </div>
+      </div>
+      <div style="margin-top:48px">
+        <a class="btn btn-menta" href="#contacto-form" data-motivo="Colaborar">Pide la propuesta de colaboración</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 · BOLETÍN Y CONTACTO -->
+  <section id="contacto" class="sec dark contacto" aria-labelledby="h-contacto">
+    <div class="wrap">
+      <h2 id="h-contacto">Nosotros trazamos el mapa.<br /><span class="accent">Tú abres el camino.</span></h2>
+      <div class="cols">
+        <div class="col" id="boletin">
+          <p class="eyebrow" id="h-boletin">Boletín</p>
+          <p class="pitch">Cada mes, ideas, estudios y casos reales sobre cómo usar la IA sin perder el criterio. Sin ruido.</p>
+          <form class="form stack" data-form="boletin" action="/api/formulario" method="post" aria-labelledby="h-boletin" novalidate>
+            <input type="hidden" name="tipo" value="boletin" />
+            <input type="hidden" name="t" value="" />
+            <div class="hp" aria-hidden="true"><label>Web<input type="text" name="web" tabindex="-1" autocomplete="off" /></label></div>
+            <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" maxlength="200" /></label>
+            <label class="check"><input type="checkbox" name="privacidad" value="si" required /><span>Acepto la <Fragment set:html={privacidad} /> (obligatorio)</span></label>
+            <p class="form-msg" role="alert"></p>
+            <div><button class="btn btn-menta" type="submit">Suscribirme</button></div>
+          </form>
+          <div class="done small" role="status" tabindex="-1" hidden>
+            <p class="big">Suscripción recibida. Te escribiremos con el primer boletín.</p>
+          </div>
+          <div class="links">
+            <a href={`mailto:${site.email}`}>{site.email}</a>
+            {site.linkedin && <a href={site.linkedin} rel="noopener" target="_blank">LinkedIn de OHPIA</a>}
+          </div>
+        </div>
+
+        <div class="col" id="contacto-form">
+          <p class="eyebrow" id="h-form-contacto">Contacto</p>
+          <form class="form" data-form="contacto" action="/api/formulario" method="post" aria-labelledby="h-form-contacto" novalidate>
+            <input type="hidden" name="tipo" value="contacto" />
+            <input type="hidden" name="t" value="" />
+            <div class="hp" aria-hidden="true"><label>Web<input type="text" name="web" tabindex="-1" autocomplete="off" /></label></div>
+            <label class="field"><span>Nombre</span><input name="nombre" required autocomplete="name" maxlength="120" /></label>
+            <label class="field"><span>Email</span><input name="email" type="email" required autocomplete="email" maxlength="200" /></label>
+            <label class="field"><span>Organización <span class="opt">(opcional)</span></span><input name="organizacion" autocomplete="organization" maxlength="160" /></label>
+            <label class="field"><span>Motivo</span>
+              <select name="motivo" required>
+                <option value="">Elige un motivo</option>
+                {motivos.map((m) => <option>{m}</option>)}
+              </select>
+            </label>
+            <label class="field full"><span>Mensaje</span><textarea name="mensaje" required rows="5" maxlength="5000"></textarea></label>
+            <label class="check full"><input type="checkbox" name="privacidad" value="si" required /><span>Acepto la <Fragment set:html={privacidad} /> (obligatorio)</span></label>
+            <p class="form-msg full" role="alert"></p>
+            <div class="full"><button class="btn btn-menta" type="submit">Enviar</button></div>
+          </form>
+          <div class="done" role="status" tabindex="-1" hidden>
+            <p class="big">Mensaje enviado. Te responderemos en breve.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import { initForms } from '../scripts/forms';
+  initForms();
+</script>

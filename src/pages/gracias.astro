@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base title="Gracias · OHPIA" noindex>
+  <section class="legal">
+    <div class="wrap">
+      <p class="eyebrow">Formulario</p>
+      <h1 id="ok">Recibido. Gracias.</h1>
+      <p id="ko" hidden>No hemos podido enviarlo. Escríbenos a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+      <a class="back" href="/">← Volver a la portada</a>
+    </div>
+  </section>
+  <script>
+    if (new URLSearchParams(location.search).has('error')) {
+      const ok = document.getElementById('ok'); if (ok) ok.textContent = 'Algo ha fallado';
+      document.getElementById('ko')?.removeAttribute('hidden');
+    }
+  </script>
+</Base>

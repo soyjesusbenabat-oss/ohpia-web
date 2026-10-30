@@ -1,0 +1,22 @@
+---
+import Legal from '../components/Legal.astro';
+import { site } from '../data/site';
+---
+<Legal title="Política de privacidad" description="Cómo trata OHPIA los datos que recibe a través de su web.">
+  <h2>Responsable</h2>
+  <p>{site.name} (OHPIA). {site.address}. <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+  <h2>Qué datos tratamos y para qué</h2>
+  <ul>
+    <li>Registro de profesionales: tus datos de contacto y perfil, para informarte de las novedades de OHPIA y, si lo marcas, de la acreditación y el boletín.</li>
+    <li>Boletín: tu email, para enviarte el boletín mensual.</li>
+    <li>Contacto: los datos que nos envías, para responderte.</li>
+  </ul>
+  <h2>Base legal</h2>
+  <p>Tu consentimiento, que das al marcar la casilla del formulario y que puedes retirar cuando quieras.</p>
+  <h2>Con quién se comparten</h2>
+  <p>No cedemos tus datos a terceros. Usamos proveedores que los tratan por cuenta nuestra: Vercel (alojamiento de la web) y Resend (envío de los formularios por correo electrónico).</p>
+  <h2>Cuánto tiempo los conservamos</h2>
+  <p>Mientras no retires tu consentimiento o hasta que dejen de ser necesarios para la finalidad para la que se recogieron.</p>
+  <h2>Tus derechos</h2>
+  <p>Puedes acceder, rectificar, suprimir, oponerte, limitar el tratamiento o pedir la portabilidad de tus datos escribiendo a <a href={`mailto:${site.email}`}>{site.email}</a>. También puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).</p>
+</Legal>

@@ -1,0 +1,157 @@
+---
+import '@fontsource/dm-serif-display/latin-400.css';
+import '@fontsource/dm-serif-display/latin-400-italic.css';
+import '@fontsource/inter/latin-400.css';
+import '@fontsource/inter/latin-600.css';
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = `${site.short} · ${site.claim}`,
+  description = site.description,
+  noindex = false,
+} = Astro.props;
+
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const base = isHome ? '' : '/';
+const canonical = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') || site.url;
+const ogImage = new URL('/og.png', Astro.site).href;
+
+const nav = [
+  ['que-es', 'Qué es'],
+  ['tesis', 'Tesis'],
+  ['empresas', 'Empresas'],
+  ['profesionales', 'Profesionales'],
+  ['barometro', 'Barómetro'],
+  ['colabora', 'Colabora'],
+  ['contacto', 'Contacto'],
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: site.name,
+  alternateName: site.short,
+  url: site.url,
+  logo: new URL('/icon-512.png', Astro.site).href,
+  email: site.email,
+  slogan: site.motto,
+  description: site.description,
+  foundingDate: '2026-10',
+  nonprofitStatus: 'Nonprofit',
+  areaServed: ['ES', 'Hispanoamérica'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'C/ San Jacinto, 69, 2.º A',
+    postalCode: '41010',
+    addressLocality: 'Sevilla',
+    addressCountry: 'ES',
+  },
+  ...(site.linkedin ? { sameAs: [site.linkedin] } : {}),
+};
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content="#131F41" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content={site.short} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="OHPIA · Productividad con criterio. IA que se aplica." />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {isHome && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header" id="cabecera">
+      <div class="wrap bar">
+        <a class="brand" href={isHome ? '#inicio' : '/'} aria-label="OHPIA, inicio">
+          <img src="/logo-negativo.png" alt="OHPIA" width="138" height="38" />
+        </a>
+        <nav class="nav-main" aria-label="Principal">
+          {nav.map(([id, label]) => <a href={`${base}#${id}`}>{label}</a>)}
+        </nav>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-movil">
+          <span class="lines" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="lbl">Menú</span>
+        </button>
+      </div>
+      <nav class="nav-mobile" id="nav-movil" aria-label="Principal móvil">
+        {nav.map(([id, label]) => <a href={`${base}#${id}`}>{label}</a>)}
+      </nav>
+    </header>
+
+    <main id="contenido" tabindex="-1">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="cols">
+          <div class="brand">
+            <img src="/logo-negativo.png" alt="OHPIA" width="174" height="48" loading="lazy" />
+            <p class="motto">{site.motto}</p>
+          </div>
+          <div class="datos">
+            <p class="nombre">{site.name}</p>
+            <p>Asociación sin ánimo de lucro</p>
+            <p style="margin-top:6px">{site.address}</p>
+            <p>NIF {site.nif} · <a href={`mailto:${site.email}`}>{site.email}</a></p>
+          </div>
+          <nav aria-label="Legal">
+            <a href="/aviso-legal">Aviso legal</a>
+            <a href="/privacidad">Política de privacidad</a>
+            <a href="/cookies">Política de cookies</a>
+            {site.linkedin
+              ? <a href={site.linkedin} rel="noopener" target="_blank">LinkedIn</a>
+              : <span>LinkedIn (próximamente)</span>}
+          </nav>
+        </div>
+        <p class="copy">© {new Date().getFullYear()} OHPIA</p>
+      </div>
+    </footer>
+
+    <script>
+      const header = document.getElementById('cabecera');
+      const btn = header?.querySelector<HTMLButtonElement>('.menu-btn');
+      const lbl = btn?.querySelector('.lbl');
+      const setOpen = (open: boolean) => {
+        header?.classList.toggle('open', open);
+        btn?.setAttribute('aria-expanded', String(open));
+        btn?.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+        if (lbl) lbl.textContent = open ? 'Cerrar' : 'Menú';
+      };
+      btn?.addEventListener('click', () => setOpen(!header?.classList.contains('open')));
+      header?.querySelectorAll('.nav-mobile a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && header?.classList.contains('open')) { setOpen(false); btn?.focus(); }
+      });
+      window.matchMedia('(min-width: 1100px)').addEventListener('change', (e) => { if (e.matches) setOpen(false); });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<Base title={`${title} · OHPIA`} description={description} noindex>
+  <article class="legal">
+    <div class="wrap">
+      <p class="eyebrow">OHPIA</p>
+      <h1>{title}</h1>
+      <p class="aviso">Texto provisional. La versión definitiva se publicará en breve.</p>
+      <slot />
+      <a class="back" href="/">← Volver a la portada</a>
+    </div>
+  </article>
+</Base>

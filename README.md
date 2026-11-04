@@ -1,6 +1,6 @@
 # Web de OHPIA
 
-Observatorio Hispano de Productividad con Inteligencia Artificial · https://ohpia.com
+Observatorio Hispano de Productividad con Inteligencia Artificial · https://www.ohpia.org
 
 Web de una página hecha con [Astro](https://astro.build) y desplegada en Vercel. Los formularios se envían por correo con [Resend](https://resend.com).
 

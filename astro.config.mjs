@@ -3,7 +3,7 @@ import vercel from '@astrojs/vercel';
 import sitemap from '@astrojs/sitemap';
 
 // Dominio definitivo. Cámbialo aquí si al final la web vive en otro.
-const SITE = 'https://ohpia.com';
+const SITE = 'https://www.ohpia.org';
 
 const noIndex = ['/aviso-legal', '/privacidad', '/cookies', '/gracias', '/404'];
 

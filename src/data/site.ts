@@ -6,7 +6,7 @@ export const site = {
   motto: 'IA que se aplica.',
   description:
     'OHPIA es una asociación sin ánimo de lucro que ayuda a las pymes a decidir qué automatizar con IA y qué no, quién conserva la decisión y a dónde va el tiempo que se gana.',
-  url: 'https://ohpia.com',
+  url: 'https://www.ohpia.org',
   email: 'ohpia@ohpia.org',
   address: 'C/ San Jacinto, 69, 2.º A · 41010 Sevilla',
   nif: 'en trámite',

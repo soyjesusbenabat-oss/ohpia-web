@@ -14,6 +14,9 @@ export const site = {
   rna: 'en trámite',
   // Fecha de la última actualización de los textos legales.
   legalUpdated: '5 de noviembre de 2026',
+  // Google Tag Manager (GTM-…) o Google Analytics 4 (G-…). Solo se carga si se aceptan las cookies analíticas.
+  // La variable de entorno PUBLIC_GA_ID, si existe, tiene prioridad.
+  analytics: 'GTM-NMP4NJ45',
   // Pega aquí la URL de la página de LinkedIn cuando exista.
   linkedin: '',
 };

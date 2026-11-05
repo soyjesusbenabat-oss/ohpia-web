@@ -1,8 +1,9 @@
 ---
+import { site } from '../data/site';
 // Banner de cookies. Google Analytics solo se carga si la persona acepta las cookies analíticas.
-// El identificador de medición va en la variable de entorno PUBLIC_GA_ID (p. ej. G-XXXXXXXXXX).
-// Sin PUBLIC_GA_ID no se muestra el banner ni se carga nada.
-const gaId = (import.meta.env.PUBLIC_GA_ID ?? '').trim();
+// El identificador (GTM-… o G-…) está en src/data/site.ts (analytics) o en la variable PUBLIC_GA_ID.
+// Sin identificador no se muestra el banner ni se carga nada.
+const gaId = (import.meta.env.PUBLIC_GA_ID || site.analytics || '').trim();
 ---
 {gaId && (
   <div class="cookies" id="cookies" role="dialog" aria-modal="false" aria-labelledby="cookies-titulo" data-ga={gaId} hidden>
@@ -53,12 +54,19 @@ const gaId = (import.meta.env.PUBLIC_GA_ID ?? '').trim();
     loaded = true;
     const w = window as unknown as { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
     w.dataLayer = w.dataLayer || [];
-    w.gtag = function () { w.dataLayer.push(arguments); };
-    w.gtag('js', new Date());
-    w.gtag('config', gaId, { anonymize_ip: true });
     const s = document.createElement('script');
     s.async = true;
-    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+    if (gaId.startsWith('GTM-')) {
+      // Google Tag Manager: la etiqueta de GA4 se configura dentro del contenedor.
+      w.dataLayer.push({ 'gtm.start': Date.now(), event: 'gtm.js' });
+      s.src = `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gaId)}`;
+    } else {
+      // Google Analytics 4 directo (G-XXXXXXXXXX).
+      w.gtag = function () { w.dataLayer.push(arguments); };
+      w.gtag('js', new Date());
+      w.gtag('config', gaId);
+      s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+    }
     document.head.appendChild(s);
   };
 

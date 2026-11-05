@@ -32,9 +32,10 @@ Antispam: campo trampa oculto, control de tiempo mínimo y límite de envíos po
 
 ## Analítica y cookies
 
-Google Analytics 4 solo se carga si la persona acepta las cookies analíticas en el banner. La elección se guarda 24 meses en el navegador (`ohpia-cookies`) y se puede cambiar desde «Configurar cookies» en el pie.
+Google Tag Manager (con la etiqueta de Google Analytics 4 dentro) solo se carga si la persona acepta las cookies analíticas en el banner. La elección se guarda 24 meses en el navegador (`ohpia-cookies`) y se puede cambiar desde «Configurar cookies» en el pie.
 
-- `PUBLIC_GA_ID`: identificador de medición de GA4 (`G-XXXXXXXXXX`). Sin él no aparece el banner ni se carga Analytics. Como es una variable `PUBLIC_`, tras añadirla en Vercel hay que volver a desplegar.
+- El identificador está en `src/data/site.ts` (`analytics`): admite un contenedor de Tag Manager (`GTM-…`) o una propiedad de GA4 (`G-…`). Si se define la variable `PUBLIC_GA_ID` en Vercel, tiene prioridad. Sin identificador no aparece el banner.
+- Tag Manager solo se carga tras el consentimiento, así que dentro del contenedor no hace falta configurar el modo de consentimiento: basta con la etiqueta de Google (GA4) disparada en todas las páginas.
 - En GA4, poner la retención de datos en 14 meses (Administrar → Recopilación y modificación de datos → Retención de datos), que es lo que indica la política de privacidad.
 
 ## Trabajar en local

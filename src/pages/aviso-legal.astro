@@ -1,15 +1,56 @@
 ---
 import Legal from '../components/Legal.astro';
 import { site } from '../data/site';
+const mail = `mailto:${site.email}`;
 ---
-<Legal title="Aviso legal" description="Datos identificativos del titular de la web de OHPIA.">
-  <h2>Titular de la web</h2>
+<Legal title="Aviso legal" description="Datos del titular de la web de OHPIA y condiciones de uso.">
+  <h2>1. Titular de la web</h2>
+  <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI), estos son los datos del titular de esta web:</p>
   <ul>
-    <li>Denominación: {site.name} (OHPIA), asociación sin ánimo de lucro.</li>
-    <li>Domicilio: {site.address}.</li>
-    <li>NIF: {site.nif}.</li>
-    <li>Email: <a href={`mailto:${site.email}`}>{site.email}</a>.</li>
+    <li><strong>Denominación:</strong> {site.name} ({site.short}).</li>
+    <li><strong>Naturaleza jurídica:</strong> asociación sin ánimo de lucro, constituida al amparo de la Ley Orgánica 1/2002, de 22 de marzo, reguladora del Derecho de Asociación.</li>
+    <li><strong>NIF:</strong> {site.nif}.</li>
+    <li><strong>Domicilio social:</strong> {site.address} (España).</li>
+    <li><strong>Inscripción:</strong> Registro Nacional de Asociaciones, Grupo 1, Sección 1.ª, número nacional {site.rna}.</li>
+    <li><strong>Email:</strong> <a href={mail}>{site.email}</a>.</li>
   </ul>
-  <h2>Condiciones de uso</h2>
-  <p>El acceso a esta web es gratuito. Los contenidos tienen fines informativos. Si detectas un error, escríbenos a <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+  <h2>2. Objeto</h2>
+  <p>Este aviso legal regula el acceso y el uso de esta web. Acceder a ella te da la condición de persona usuaria e implica que aceptas estas condiciones. Algunos servicios, como la adhesión a la asociación, la formación o la acreditación, pueden tener además condiciones particulares, que prevalecen en caso de conflicto.</p>
+  <p>OHPIA es una asociación de interés general que promueve la implantación eficiente, responsable y ética de la inteligencia artificial en las empresas, con especial atención a las pymes del ámbito hispano. OHPIA no ejecuta proyectos de implantación de inteligencia artificial por cuenta de terceros ni comercializa tecnología.</p>
+
+  <h2>3. Condiciones de uso</h2>
+  <p>El acceso a la web es gratuito. Te comprometes a hacer un uso adecuado y lícito de ella y de sus contenidos. En particular, a no:</p>
+  <ul>
+    <li>usarla con fines ilícitos o contrarios a la buena fe;</li>
+    <li>introducir virus o cualquier sistema que pueda dañar los sistemas de OHPIA o de terceros;</li>
+    <li>intentar acceder sin autorización a zonas restringidas;</li>
+    <li>extraer de forma masiva o automatizada sus contenidos;</li>
+    <li>facilitar en los formularios datos falsos o datos de otras personas sin su consentimiento.</li>
+  </ul>
+  <p>OHPIA puede retirar o suspender el acceso a quien incumpla estas condiciones.</p>
+
+  <h2>4. Contenidos y orientación normativa</h2>
+  <p>OHPIA cuida que sus contenidos sean rigurosos y publica la fuente y la metodología de sus datos. Aun así, no garantiza que estén libres de errores ni permanentemente actualizados: la normativa y los datos sobre inteligencia artificial cambian con frecuencia.</p>
+  <p>La información sobre el marco normativo y las ayudas públicas es de carácter general y no constituye asesoramiento profesional. El asesoramiento jurídico sobre casos concretos corresponde a profesionales colegiados.</p>
+
+  <h2>5. Entidades homologadas y profesionales acreditados</h2>
+  <p>OHPIA puede facilitar el contacto con entidades homologadas y profesionales acreditados conforme a criterios públicos y objetivos. La derivación no es exclusiva: la empresa recibe varias opciones y elige libremente. La relación contractual se establece directamente entre la empresa y la entidad o profesional elegido, que responde de sus propios servicios. Si OHPIA percibe comisiones por servicios derivados, su existencia y su cuantía son públicas e iguales para todas las entidades homologadas.</p>
+
+  <h2>6. Propiedad intelectual e industrial</h2>
+  <p>Los estudios, informes, barómetros, bases de datos, textos, gráficos, diseño y demás contenidos de esta web son de OHPIA o de terceros que han autorizado su uso. La marca «OHPIA» y los nombres de dominio ohpia.org y ohpia.com se utilizan en virtud de licencia de uso otorgada por su titular.</p>
+  <p>Puedes citar y compartir los contenidos con fines informativos o académicos, siempre que indiques la fuente («OHPIA») y enlaces a esta web. Su reproducción, distribución o transformación con fines comerciales requiere autorización previa y por escrito de OHPIA.</p>
+
+  <h2>7. Enlaces</h2>
+  <p>La web puede contener enlaces a sitios de terceros. OHPIA no controla esos sitios ni responde de sus contenidos, aunque retirará cualquier enlace en cuanto tenga conocimiento efectivo de que remite a contenidos ilícitos. Puedes enlazar a la página principal de esta web sin dar a entender una relación o un respaldo que no exista.</p>
+
+  <h2>8. Responsabilidad</h2>
+  <p>OHPIA no responde de los daños derivados de interrupciones técnicas, fallos de los proveedores de servicios, virus o accesos no autorizados de terceros, siempre que haya adoptado medidas de seguridad razonables. Tampoco responde del uso que terceros hagan de los contenidos de la web.</p>
+
+  <h2>9. Protección de datos y cookies</h2>
+  <p>El tratamiento de datos personales se rige por la <a href="/privacidad">política de privacidad</a>, y el uso de cookies, por la <a href="/cookies">política de cookies</a>.</p>
+
+  <h2>10. Legislación aplicable y jurisdicción</h2>
+  <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, las partes se someten a los juzgados y tribunales de Sevilla, salvo que la persona usuaria tenga la condición de consumidora, en cuyo caso serán competentes los de su domicilio.</p>
+  <p>OHPIA puede modificar este aviso legal para adaptarlo a cambios legales o de la web. La versión vigente es la publicada en esta página.</p>
 </Legal>

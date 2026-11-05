@@ -5,6 +5,7 @@ import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-600.css';
 import '../styles/global.css';
 import { site } from '../data/site';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
@@ -127,6 +128,7 @@ const jsonLd = {
             <a href="/aviso-legal">Aviso legal</a>
             <a href="/privacidad">Política de privacidad</a>
             <a href="/cookies">Política de cookies</a>
+            <button type="button" class="link" data-abrir-cookies>Configurar cookies</button>
             {site.linkedin
               ? <a href={site.linkedin} rel="noopener" target="_blank">LinkedIn</a>
               : <span>LinkedIn (próximamente)</span>}
@@ -135,6 +137,8 @@ const jsonLd = {
         <p class="copy">© {new Date().getFullYear()} OHPIA</p>
       </div>
     </footer>
+
+    <CookieBanner />
 
     <script>
       const header = document.getElementById('cabecera');

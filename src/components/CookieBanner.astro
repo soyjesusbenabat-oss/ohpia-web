@@ -1,0 +1,122 @@
+---
+// Banner de cookies. Google Analytics solo se carga si la persona acepta las cookies analíticas.
+// El identificador de medición va en la variable de entorno PUBLIC_GA_ID (p. ej. G-XXXXXXXXXX).
+// Sin PUBLIC_GA_ID no se muestra el banner ni se carga nada.
+const gaId = (import.meta.env.PUBLIC_GA_ID ?? '').trim();
+---
+{gaId && (
+  <div class="cookies" id="cookies" role="dialog" aria-modal="false" aria-labelledby="cookies-titulo" data-ga={gaId} hidden>
+    <h2 id="cookies-titulo">Cookies</h2>
+    <p>
+      Usamos cookies propias necesarias para que la web funcione y, si las aceptas, cookies de Google Analytics
+      para saber de forma estadística cómo se usa. Puedes aceptarlas, rechazarlas o elegir.
+      Más información en la <a href="/cookies">política de cookies</a>.
+    </p>
+    <div class="opciones" id="cookies-opciones" hidden>
+      <label><input type="checkbox" checked disabled /> <span>Técnicas<small>Necesarias para el funcionamiento de la web. Siempre activas.</small></span></label>
+      <label><input type="checkbox" id="cookies-analiticas" /> <span>Analíticas<small>Google Analytics: visitas y uso de la web, de forma estadística.</small></span></label>
+    </div>
+    <div class="acciones">
+      <button type="button" class="btn btn-menta" data-cookies="rechazar">Rechazar</button>
+      <button type="button" class="btn btn-menta" data-cookies="aceptar">Aceptar</button>
+      <button type="button" class="config" data-cookies="configurar" aria-expanded="false" aria-controls="cookies-opciones">Configurar</button>
+    </div>
+  </div>
+)}
+
+<script>
+  const KEY = 'ohpia-cookies';
+  const MAX_AGE = 1000 * 60 * 60 * 24 * 365 * 2; // se vuelve a preguntar a los 24 meses
+
+  type Choice = { analytics: boolean; date: number };
+
+  const box = document.getElementById('cookies');
+  const gaId = box?.dataset.ga ?? '';
+
+  const read = (): Choice | null => {
+    try {
+      const c = JSON.parse(localStorage.getItem(KEY) ?? 'null') as Choice | null;
+      if (!c || Date.now() - c.date > MAX_AGE) return null;
+      return c;
+    } catch {
+      return null;
+    }
+  };
+
+  const save = (analytics: boolean) => {
+    try { localStorage.setItem(KEY, JSON.stringify({ analytics, date: Date.now() })); } catch {}
+  };
+
+  let loaded = false;
+  const loadGA = () => {
+    if (loaded || !gaId) return;
+    loaded = true;
+    const w = window as unknown as { dataLayer: unknown[]; gtag: (...a: unknown[]) => void };
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () { w.dataLayer.push(arguments); };
+    w.gtag('js', new Date());
+    w.gtag('config', gaId, { anonymize_ip: true });
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+    document.head.appendChild(s);
+  };
+
+  // Al retirar el consentimiento, borra las cookies de Google Analytics.
+  const clearGA = () => {
+    const host = location.hostname.replace(/^www\./, '');
+    document.cookie.split(';').forEach((c) => {
+      const name = c.split('=')[0].trim();
+      if (!name.startsWith('_ga')) return;
+      for (const d of ['', host, `.${host}`]) {
+        document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${d ? `; domain=${d}` : ''}`;
+      }
+    });
+  };
+
+  const opciones = document.getElementById('cookies-opciones');
+  const analiticas = document.getElementById('cookies-analiticas') as HTMLInputElement | null;
+  const configBtn = box?.querySelector<HTMLButtonElement>('[data-cookies="configurar"]');
+  const aceptarBtn = box?.querySelector<HTMLButtonElement>('[data-cookies="aceptar"]');
+
+  const open = () => {
+    if (!box) return;
+    const c = read();
+    if (analiticas) analiticas.checked = !!c?.analytics;
+    box.hidden = false;
+  };
+
+  const close = () => { if (box) box.hidden = true; };
+
+  const decide = (analytics: boolean) => {
+    const before = read();
+    save(analytics);
+    close();
+    if (analytics) loadGA();
+    else if (before?.analytics) { clearGA(); location.reload(); }
+  };
+
+  if (box) {
+    const c = read();
+    if (c) { if (c.analytics) loadGA(); }
+    else open();
+
+    box.addEventListener('click', (e) => {
+      const action = (e.target as HTMLElement).closest<HTMLElement>('[data-cookies]')?.dataset.cookies;
+      if (action === 'rechazar') decide(false);
+      if (action === 'aceptar') {
+        decide(opciones && !opciones.hidden ? !!analiticas?.checked : true);
+      }
+      if (action === 'configurar' && opciones) {
+        opciones.hidden = !opciones.hidden;
+        configBtn?.setAttribute('aria-expanded', String(!opciones.hidden));
+        if (aceptarBtn) aceptarBtn.textContent = opciones.hidden ? 'Aceptar' : 'Guardar selección';
+      }
+    });
+  }
+
+  // Enlace «Configurar cookies» del pie y de la política de cookies.
+  document.querySelectorAll<HTMLElement>('[data-abrir-cookies]').forEach((el) =>
+    el.addEventListener('click', (e) => { e.preventDefault(); if (box) open(); else location.href = '/cookies'; }),
+  );
+</script>

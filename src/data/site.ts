@@ -10,6 +10,10 @@ export const site = {
   email: 'ohpia@ohpia.org',
   address: 'C/ San Jacinto, 69, 2.º A · 41010 Sevilla',
   nif: 'en trámite',
+  // Número nacional en el Registro Nacional de Asociaciones (Grupo 1, Sección 1.ª).
+  rna: 'en trámite',
+  // Fecha de la última actualización de los textos legales.
+  legalUpdated: '5 de noviembre de 2026',
   // Pega aquí la URL de la página de LinkedIn cuando exista.
   linkedin: '',
 };
